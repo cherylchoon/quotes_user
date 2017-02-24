@@ -1,0 +1,23 @@
+body {
+  font-family: Courier;
+  background-image: url("");
+  background-position: top;
+  background-repeat: no-repeat;
+}
+#wrapper {
+  text-align: center;
+  margin-top: 5%;
+}
+#messages {
+  color: red;
+}
+li {
+  list-style-type: none;
+}
+input[type='submit']{
+  border: 0px;
+  box-shadow: 2px 2px 2px grey;
+  color: white;
+  font-size: 1em;
+  background-color: black;
+}

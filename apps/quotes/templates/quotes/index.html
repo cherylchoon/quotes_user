@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Quotes</title>
+    <link rel='stylesheet' href='{% static 'quotes/styles.css' %}'>
+  </head>
+  <body>
+    <div id='navbar'>
+      <a href='{% url 'users:user_logout' %}'>Logout</a>
+    </div>
+    <h3>Welcome, {{request.session.username}}!</h3>
+    <div class='wrapper'>
+    <h3>Quoteable Quotes</h3>
+      {% for quote in allQuotes %}
+      <div id='quotes'>
+        <form action='{% url 'quotes:add_fav' %}' method='POST'>
+          {% csrf_token %}
+          <p>{{quote.author}}: {{quote.message}}</p>
+          Posted by <a href='/users/{{quote.user.id}}'>{{quote.user.alias}}</a>
+          <input type hidden name='quote_id' value='{{quote.id}}'>
+          <input type='submit' name='favorite' value='Add to My List'>
+        </form>
+      </div>
+      {% endfor %}
+      </div>
+    <div class='wrapper'>
+      <h3>Your favorites</h3>
+    <div id='favorites'>
+      <form action='{% url 'quotes:delete_fav' %}' method='POST'>
+        {% csrf_token %}
+        {% for fav in favQuotes %}
+          <p>{{fav.quote.author}}: {{fav.quote.message}}</p>
+          <p>Posted by <a href='/users/{{fav.user.id}}'>{{fav.quote.user.alias}}</a></p>
+          <input type='numbers' hidden name='fav_id' value='{{fav.id}}'>
+          <input type='submit' value='Remove From My List'>
+          <br>
+        {% endfor %}
+      </form>
+    </div>
+    <div id='add_quotes'>
+      {% if messages %}
+        {% for m in messages %}
+          <div id="messages">{{m}}</div>
+        {% endfor %}
+      {% endif %}
+      <form action='{% url 'quotes:add_quotes' %}' method='POST'>
+        {% csrf_token %}
+        <h3>Contribute a Quote: </h3>
+        {{quoteForm.as_p}}
+        <input type='submit' name='quote' value='Submit'>
+      </form>
+    </div>
+    </div>
+  </body>
+</html>

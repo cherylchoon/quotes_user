@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='{% static 'login/styles.css' %}'>
+    <title>Login & Reg | Home</title>
+  </head>
+  <body>
+    <div id='wrapper'>
+      <h3>Registration</h3>
+      {% if messages %}
+        {% for m in messages %}
+          <div id="messages">{{m}}</div>
+        {% endfor %}
+      {% endif %}
+      <form action='{% url 'users:user_register' %}' method='POST'>
+        {% csrf_token %}
+        {{regForm.as_p}}
+        <input type='submit' name='register' value='Register'>
+      </form>
+      <h3>Login</h3>
+      <form action='{% url 'users:user_login' %}' method='POST'>
+        {% csrf_token %}
+        {{loginForm.as_p}}
+        <input type='submit' name='login' value='Login'>
+      </form>
+    </div>
+  </body>
+</html>

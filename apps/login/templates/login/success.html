@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Login & Reg | Home</title>
+  </head>
+  <body>
+    <h3>Success! Welcome, {{request.session.username}}!</h3>
+    <h6>Succesfully registered (or logged in)!</h6>
+    <form action='{% url 'users:user_logout' %}' method='POST'>
+      {% csrf_token %}
+      <input type='submit' name='logout' value='Logout'>
+    </form>
+  </body>
+</html>

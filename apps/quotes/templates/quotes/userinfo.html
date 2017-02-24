@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='{% static 'quotes/userinfo_style.css' %}'>
+    <title>User Information | Quotes</title>
+  </head>
+  <body>
+    <div id="navbar">
+      <a href='{% url 'quotes:quotes_index' %}'>Dashboard</a>
+      <a href='{% url 'users:user_logout' %}'>Logout</a>
+    </div>
+    <div id="content">
+      <p>Posts by {{user_info.alias}}</p>
+      <p>Count: {{quotes|length}}</p>
+      <br>
+      {% for quote in quotes %}
+        <p>{{quote.author}}: {{quote.message}}</p>
+      {% endfor %}
+    </div>
+  </body>
+</html>
